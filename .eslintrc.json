@@ -5,7 +5,9 @@
   ],
   "plugins": ["unused-imports", "simple-import-sort"],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "tsconfig.json",
+		"tsconfigRootDir": "Frontend",
+    "sourceType": "module"
   },
   "overrides": [
     {
@@ -38,11 +40,10 @@
           "warn",
           { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
         ],
+				// "no-tabs": ["error", { "allowIndentationTabs": true }],
+				"linebreak-style": ["error", "unix" ,"windows"],
         // TypeScript Eslint rules
-        "@typescript-eslint/indent": [
-          "error",
-          4
-        ],
+        "@typescript-eslint/indent": ["error","tab"],
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/lines-between-class-members": "off",
         "@typescript-eslint/quotes": ["error","double"],
