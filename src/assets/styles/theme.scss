@@ -80,11 +80,148 @@ $blue-accent-palette: (
 	)
 );
 
+$secondary-palette: (
+	50: #ffe5cc,
+	100: #f6c5b0,
+	200: #dba48e,
+	300: #bd836a,
+	400: #a7694f,
+	500: #915035,
+	600: #85472f,
+	700: #743a26,
+	800: #652d1f,
+	900: #551f16,
+	A100: #ffeee9,
+	A200: #ffc7b6,
+	A400: #ffa183,
+	A700: #ff8d69,
+	contrast: (
+		50: $dark-primary-text,
+		100: $dark-primary-text,
+		200: $dark-primary-text,
+		300: $dark-primary-text,
+		400: $dark-primary-text,
+		500: $dark-primary-text,
+		600: $dark-primary-text,
+		700: $light-primary-text,
+		800: $light-primary-text,
+		900: $light-primary-text,
+		A100: $dark-primary-text,
+		A200: $dark-primary-text,
+		A400: $dark-primary-text,
+		A700: black
+	)
+);
+
+$tertiary-palette: (
+	50: #faf9e7,
+	100: #f2f0c4,
+	200: #e9e79f,
+	300: #e0de7b,
+	400: #d9d661,
+	500: #d2d049,
+	600: #c4bf43,
+	700: #b2a93d,
+	800: #9f9337,
+	900: #7f6e2e,
+	A100: #ffdd89,
+	A200: #ffce56,
+	A400: #ffbf23,
+	A700: #ffb809,
+	contrast: (
+		50: $dark-primary-text,
+		100: $dark-primary-text,
+		200: $dark-primary-text,
+		300: $dark-primary-text,
+		400: $dark-primary-text,
+		500: $light-primary-text,
+		600: $light-primary-text,
+		700: $light-primary-text,
+		800: $light-primary-text,
+		900: $light-primary-text,
+		A100: $dark-primary-text,
+		A200: $dark-primary-text,
+		A400: $dark-primary-text,
+		A700: black
+	)
+);
+
+$warn-palette: (
+	50: #ffecee,
+	100: #ffcfd2,
+	200: #fa9c98,
+	300: #f47570,
+	400: #ff5549,
+	500: #ff4429,
+	600: #f63b2b,
+	700: #e42f25,
+	800: #d7271d,
+	900: #c71a0f,
+	A100: #ffffff,
+	A200: #ffffff,
+	A400: #ffd2d0,
+	A700: #ffb9b7,
+	contrast: (
+		50: $dark-primary-text,
+		100: $dark-primary-text,
+		200: $dark-primary-text,
+		300: $dark-primary-text,
+		400: $dark-primary-text,
+		500: $dark-primary-text,
+		600: $dark-primary-text,
+		700: $light-primary-text,
+		800: $light-primary-text,
+		900: $light-primary-text,
+		A100: $dark-primary-text,
+		A200: $dark-primary-text,
+		A400: $dark-primary-text,
+		A700: black
+	)
+);
+
+$neutral-palette: (
+	50: #ececec,
+	100: #d0d0d0,
+	200: #b2b0af,
+	300: #998f8b,
+	400: #86756f,
+	500: #745d54,
+	600: #68544c,
+	700: #584742,
+	800: #493b38,
+	900: #392e2c,
+	A100: #fde6dc,
+	A200: #fac4ab,
+	A400: #ff9f74,
+	A700: #ff8e5a,
+	contrast: (
+		50: $dark-primary-text,
+		100: $dark-primary-text,
+		200: $dark-primary-text,
+		300: $dark-primary-text,
+		400: $dark-primary-text,
+		500: $dark-primary-text,
+		600: $dark-primary-text,
+		700: $light-primary-text,
+		800: $light-primary-text,
+		900: $light-primary-text,
+		A100: $dark-primary-text,
+		A200: $dark-primary-text,
+		A400: $dark-primary-text,
+		A700: black
+	)
+);
+
 $atom-challenge-fe-template-primary: mat.define-palette($orange-atom-palette, 900);
 $atom-challenge-fe-template-accent: mat.define-palette($blue-accent-palette, A200, A100, A400);
+$secondary-palette-template: mat.define-palette($secondary-palette, 300);
+$tertiary-palette-template: mat.define-palette($tertiary-palette, 800);
+$warn-palette-template: mat.define-palette($warn-palette, 400);
+$neutral-palette-template: mat.define-palette($warn-palette, 300);
 
 // The "warn" palette is optional and defaults to red if not specified.
-$my-warn: mat.define-palette(mat.$red-palette);
+// $my-warn: mat.define-palette(mat.$red-palette);
+$my-warn: mat.define-palette($warn-palette-template);
 
 $atom-typography: mat.define-typography-config(
 	$font-family: Inter
@@ -100,6 +237,33 @@ $atom-challenge-fe-template-theme: mat.define-light-theme(
 			warn: $my-warn
 		),
 		typography: $atom-typography
+	)
+);
+
+$secondary-theme: mat.define-light-theme(
+	(
+		color: (
+			primary: $secondary-palette-template,
+			accent: $atom-challenge-fe-template-accent
+		)
+	)
+);
+
+$tertiary-theme: mat.define-light-theme(
+	(
+		color: (
+			primary: $tertiary-palette-template,
+			accent: $atom-challenge-fe-template-accent
+		)
+	)
+);
+
+$neutral-theme: mat.define-light-theme(
+	(
+		color: (
+			primary: $neutral-palette-template,
+			accent: $atom-challenge-fe-template-accent
+		)
 	)
 );
 
