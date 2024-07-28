@@ -1,0 +1,54 @@
+/* Variables for Mixins in $ */
+/* Typography */
+$font-size-h1-desktop: 30px;
+$font-size-h1-mobile: 16px;
+$font-size-h2-desktop: 26px;
+$font-size-h2-mobile: 14px;
+$font-size-h3-desktop: 22px;
+$font-size-h3-mobile: 12px;
+$font-size-p1-desktop: 20px;
+$font-size-p1-mobile: 16px;
+$font-size-p2-desktop: 16px;
+$font-size-p2-mobile: 14px;
+$font-size-p3-desktop: 14px;
+$font-size-p3-mobile: 12px;
+$font-size-p4-desktop: 12px;
+$font-size-p4-mobile: 10px;
+/* Input */
+$input-font-size-desktop: 20px;
+$input-font-size-mobile: 16px;
+$input-title-font-size-desktop: 16px;
+$input-title-font-size-mobile: 12px;
+$input-info-font-size-desktop: 12px;
+$input-info-font-size-mobile: 8px;
+$input-icon-desktop: 16px;
+$input-icon-mobile: 12px;
+/* Button */
+$font-size-b1-desktop: 18px;
+$font-size-b1-mobile: 14px;
+$font-size-b2-desktop: 14px;
+$font-size-b2-mobile: 10px;
+
+/* Variables for var() */
+:root {
+	/* Marges */
+	--marge-h-desktop: 24px;
+	--marge-h-mobile: var(--marge-h-desktop);
+	--marge-v-desktop: 12px;
+	--marge-v-mobile: 8px;
+	--marge-between-1-desktop: 16px;
+	--marge-between-1-mobile: 12px;
+	--marge-between-2-desktop: var(--marge-between-1-mobile);
+	--marge-between-2-mobile: 8px;
+	--marge-between-3-desktop: var(--marge-between-2-mobile);
+	--marge-between-3-mobile: 4px;
+	/* Radius */
+	--radius-desktop: 16px;
+	--radius-mobile: 12px;
+	/* Button */
+	--button-padding-h-desktop: 16px;
+	--button-padding-h-mobile: 14px;
+	/* Primary */
+	--button-primary-radius-desktop: 32px;
+	--button-primary-radius-mobile: 24px;
+}

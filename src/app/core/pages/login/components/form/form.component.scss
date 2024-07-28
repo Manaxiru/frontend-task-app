@@ -1,0 +1,31 @@
+form {
+	display: flex;
+	column-gap: var(--marge-between-1-mobile);
+	flex-wrap: wrap;
+	> mat-form-field {
+		flex-grow: 1;
+		flex-basis: max(330px, 60%);
+	}
+	> button {
+		flex-grow: 1;
+		margin-top: calc(var(--marge-between-2-mobile) / 2);
+	}
+	.actions {
+		display: flex;
+		flex-grow: 1;
+		justify-content: center;
+		column-gap: var(--marge-between-1-mobile);
+		> button {
+			width: 50%;
+		}
+	}
+	@media (min-width: 768px) {
+		column-gap: var(--marge-between-1-desktop);
+		> button {
+			margin-top: calc(var(--marge-between-2-desktop) / 2);
+		}
+		.actions {
+			column-gap: var(--marge-between-1-desktop);
+		}
+	}
+}

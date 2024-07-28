@@ -1,0 +1,22 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+	<mat-form-field hideRequiredMarker appearance="outline">
+		<mat-label> {{!value ? "Ingresar correo" : "Confirmar correo"}} </mat-label>
+		<input matInput type="email" placeholder="user@example.com" formControlName="email">
+		@if (utilFunctionsService.validateFormInHTML(form.get("email")!)) {
+		<mat-error>{{ utilFunctionsService.errorText(form.get("email")!.errors) }}</mat-error>
+		}
+	</mat-form-field>
+	@if (!value) {
+	<button mat-flat-button color="primary" type="submit" [disabled]="loadingService.getLoading() | async">
+		Ingresar
+	</button>
+	} @else {
+	<section class="actions">
+		<button mat-flat-button color="primary" type="button" class="cancel" (click)="close()"> Cancelar </button>
+		<button mat-flat-button color="primary" type="submit"
+			[disabled]="(loadingService.getLoading() | async) || form.invalid">
+			Confirmar
+		</button>
+	</section>
+	}
+</form>

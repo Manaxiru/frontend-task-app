@@ -1,0 +1,9 @@
+<section>
+	<header mat-dialog-title>
+		<h1> No posee un usuario </h1>
+		<p> Si desea crearlo, presione confirmar. </p>
+	</header>
+	<mat-dialog-content>
+		<app-form [value]="data" (formValue)="dialogRef.close($event)"></app-form>
+	</mat-dialog-content>
+</section>

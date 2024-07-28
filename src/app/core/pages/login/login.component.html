@@ -1,0 +1,20 @@
+<section class="main-container">
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title-group>
+				<mat-card-title>
+					<h1> ¡Bienvenido a la aplicación de tareas! </h1>
+				</mat-card-title>
+				<mat-card-subtitle>
+					<p> Ingrese su correo para iniciar sesión </p>
+				</mat-card-subtitle>
+			</mat-card-title-group>
+		</mat-card-header>
+		<mat-card-content>
+			<app-form (formValue)="processLogin($event)"></app-form>
+		</mat-card-content>
+		<mat-card-footer>
+			<p class="p4"> Reto técnico de ATOM </p>
+		</mat-card-footer>
+	</mat-card>
+</section>
