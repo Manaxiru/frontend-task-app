@@ -51,6 +51,17 @@ p {
 section.main-container {
 	height: 100%;
 	padding-inline: 1%;
+	&:has(header) {
+		display: flex;
+		flex-direction: column;
+		padding-inline: 0;
+		gap: var(--marge-h-mobile);
+	}
+	@media (min-width: 768px) {
+		&:has(header) {
+			gap: var(--marge-h-desktop);
+		}
+	}
 }
 
 /* FORM FIELDS */
@@ -121,6 +132,17 @@ mat-form-field {
 	height: calc(var(--mdc-filled-button-container-height) - 6px) !important;
 	--mat-filled-button-horizontal-padding: var(--button-padding-h-mobile);
 	--mdc-filled-button-container-shape: var(--button-primary-radius-mobile);
+	&.secondary-button {
+		@include responsive-font(
+			0.82vw,
+			$font-size-b2-mobile,
+			$font-size-b2-desktop,
+			$font-size-b2-desktop,
+			false,
+			true
+		);
+		--mdc-filled-button-container-shape: var(--button-secondary-radius-mobile);
+	}
 	&:focus {
 		box-shadow: 0px 0px 1px 0px black;
 	}
@@ -134,18 +156,58 @@ mat-form-field {
 		height: var(--mdc-filled-button-container-height) !important;
 		--mat-filled-button-horizontal-padding: var(--button-padding-h-desktop);
 		--mdc-filled-button-container-shape: var(--button-primary-radius-desktop);
+		&.secondary-button {
+			--mdc-filled-button-container-shape: var(--button-secondary-radius-desktop);
+		}
+	}
+}
+/* Stroked */
+.mat-mdc-outlined-button {
+	@include responsive-font(1.06vw, $font-size-b1-mobile, $font-size-b1-desktop, $font-size-b1-desktop, false, true);
+	--mdc-outlined-button-label-text-tracking: 0;
+	height: calc(var(--mdc-outlined-button-container-height) - 6px) !important;
+	--mat-outlined-button-horizontal-padding: var(--button-padding-h-mobile);
+	--mdc-outlined-button-container-shape: var(--button-primary-radius-mobile);
+	--mdc-outlined-button-outline-color: rgba(255, 102, 0, 0.3) !important;
+	&.secondary-button {
+		@include responsive-font(
+			0.82vw,
+			$font-size-b2-mobile,
+			$font-size-b2-desktop,
+			$font-size-b2-desktop,
+			false,
+			true
+		);
+		--mdc-outlined-button-container-shape: var(--button-secondary-radius-mobile);
+	}
+	&:focus {
+		box-shadow: 0px 0px 1px 0px mat.get-color-from-palette($atom-challenge-fe-template-primary, 800);
+	}
+	&:hover {
+		box-shadow: 0px 0px 2px 0px mat.get-color-from-palette($atom-challenge-fe-template-primary, 800);
+	}
+	&:active {
+		box-shadow: 0px 0px 4px 0px mat.get-color-from-palette($atom-challenge-fe-template-primary, 800);
+	}
+	@media (min-width: 768px) {
+		height: var(--mdc-outlined-button-container-height) !important;
+		--mat-outlined-button-horizontal-padding: var(--button-padding-h-desktop);
+		--mdc-outlined-button-container-shape: var(--button-primary-radius-desktop);
+		&.secondary-button {
+			--mdc-outlined-button-container-shape: var(--button-secondary-radius-desktop);
+		}
 	}
 }
 
 .secondary-button {
 	// background: mat.get-theme-color($secondary-theme, primary) !important;
-	background: mat.get-color-from-palette($secondary-palette-template) !important;
-	color: mat.get-color-from-palette($secondary-palette-template, default-contrast) !important;
+	// background: mat.get-color-from-palette($secondary-palette-template) !important;
+	// color: mat.get-color-from-palette($secondary-palette-template, default-contrast) !important;
 }
 .tertiary-button {
 	// background: mat.get-theme-color($tertiary-theme, primary) !important;
-	background: mat.get-color-from-palette($tertiary-palette-template) !important;
-	color: mat.get-color-from-palette($tertiary-palette-template, default-contrast) !important;
+	// background: mat.get-color-from-palette($tertiary-palette-template) !important;
+	// color: mat.get-color-from-palette($tertiary-palette-template, default-contrast) !important;
 }
 
 /* DIALOGS */

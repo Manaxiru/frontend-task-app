@@ -1,1 +1,27 @@
-<p>dashboard works!</p>
+<section class="main-container">
+	<header>
+		<mat-toolbar-row>
+			<div class="title">
+				<h1> Lista de tareas </h1>
+			</div>
+			<div class="user-info">
+				<div>
+					<p> {{ userService.currentUserSignal()?.email }} </p>
+					<p class="p4">
+						Última conexión:
+						{{ userService.currentUserSignal()?.lastLoginAt
+						| date: "EEEE dd 'de' MMMM 'de' YYYY 'a las' hh:mm aaa"
+						| uppercase
+						}}
+					</p>
+				</div>
+				<button mat-stroked-button color="primary" class="secondary-button" (click)="logout()">
+					Cerrar sesión
+				</button>
+			</div>
+		</mat-toolbar-row>
+	</header>
+	<section class="container">
+		<div>&nbsp;</div>
+	</section>
+</section>

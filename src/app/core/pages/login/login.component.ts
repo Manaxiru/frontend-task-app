@@ -71,7 +71,7 @@ export class LoginComponent {
 	private processLoginSwitchMap(value: { email: string }): Observable<IResponse<IUser>> {
 		return this.authService.login(value)
 			.pipe(
-				tap({ complete: () => this.router.navigate(["/" + AppNavigation.DASHBOARD]) })
+				tap({ complete: () => this.router.navigateByUrl(AppNavigation.DASHBOARD) })
 			);
 	}
 }

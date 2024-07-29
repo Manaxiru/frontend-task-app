@@ -2,6 +2,7 @@ import { effect, inject, Injectable, Injector, signal, WritableSignal } from '@a
 import { toObservable } from '@angular/core/rxjs-interop';
 import { first, Observable, tap } from 'rxjs';
 import { LocalStorageService } from '@core/services';
+import { TOKEN_ENABLED } from '@core/interceptors';
 import { BackendModules } from '@app/shared/enums';
 import { IResponse, IUser } from '@app/shared/interfaces';
 import { GenericCrud } from '@app/shared/classes';
@@ -19,9 +20,9 @@ export class UserService extends GenericCrud {
 		effect(() => { console.log(`The current user is: ${this.currentUserSignal()?.email}`); });
 	}
 
-	checkEmail(user: Pick<IUser, "email">): Observable<IResponse> { return super.readOne(user.email); }
+	checkEmail(user: Pick<IUser, "email">): Observable<IResponse> { return super.readOne(user.email, false); }
 
-	register(user: Pick<IUser, "email">): Observable<IResponse> { return super.create(user); }
+	register(user: Pick<IUser, "email">): Observable<IResponse> { return super.create(user, false); }
 
 	getCurrentUser(): Observable<IUser | null> {
 		return toObservable(this.currentUserSignal, { injector: this.injector })
