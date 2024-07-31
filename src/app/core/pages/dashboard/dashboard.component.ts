@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { finalize } from 'rxjs';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,7 +10,7 @@ import { AppNavigation } from '@app/shared/navigation';
 @Component({
 	selector: 'app-dashboard',
 	standalone: true,
-	imports: [MatToolbarModule, DatePipe, UpperCasePipe, MatButtonModule],
+	imports: [MatToolbarModule, DatePipe, UpperCasePipe, MatButtonModule, RouterOutlet],
 	templateUrl: './dashboard.component.html',
 	styleUrl: './dashboard.component.scss'
 })

@@ -27,6 +27,7 @@ mat-card {
 	}
 
 	@media (min-width: 768px) {
+		padding: var(--marge-between-1-desktop);
 		border-radius: var(--radius-desktop);
 		mat-card-content {
 			padding-block: var(--marge-between-1-desktop);

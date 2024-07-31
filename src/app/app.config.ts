@@ -11,6 +11,7 @@ import { loadingInterceptor, apiInterceptor, tokenInterceptor, errorInterceptor 
 import { LocalStorageService, UserService } from "@core/services";
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from "@angular/material/core";
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
+import { MAT_ICON_DEFAULT_OPTIONS } from "@angular/material/icon";
 
 registerLocaleData(localeEs, "es");
 
@@ -29,7 +30,8 @@ export const appConfig: ApplicationConfig = {
 		),
 		provideAnimationsAsync(),
 		{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-		{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } }
+		{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } },
+		{ provide: MAT_ICON_DEFAULT_OPTIONS, useValue: { fontSet: 'material-icons-round' } }
 	]
 };
 

@@ -32,13 +32,9 @@ header {
 section.container {
 	padding-inline: 10%;
 	flex-grow: 1;
-
-	div {
-		border-radius: var(--radius-mobile);
-		background: rgba(250, 250, 250, 0.7);
-		box-shadow: 0 8px 32px 0 rgba(255, 102, 0, 0.25);
-		backdrop-filter: blur(8px);
-		padding-block: var(--marge-between-1-mobile);
-		border: 1px solid rgba(255, 255, 255, 0.75);
+	display: flex;
+	margin-bottom: var(--marge-h-mobile);
+	@media (min-width: 768px) {
+		margin-bottom: var(--marge-h-desktop);
 	}
 }

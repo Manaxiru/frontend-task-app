@@ -2,7 +2,6 @@ import { effect, inject, Injectable, Injector, signal, WritableSignal } from '@a
 import { toObservable } from '@angular/core/rxjs-interop';
 import { first, Observable, tap } from 'rxjs';
 import { LocalStorageService } from '@core/services';
-import { TOKEN_ENABLED } from '@core/interceptors';
 import { BackendModules } from '@app/shared/enums';
 import { IResponse, IUser } from '@app/shared/interfaces';
 import { GenericCrud } from '@app/shared/classes';

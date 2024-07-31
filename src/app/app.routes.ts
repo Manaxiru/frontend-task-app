@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
+import { authGuard, noAuthGuard } from "@core/guards";
 import { AppNavigation } from "@shared/navigation";
-import { authGuard } from "@core/guards";
-import { noAuthGuard } from "./core/guards/auth.guard";
+import { TasksComponent } from "@modules/index";
 
 export const routes: Routes = [
 	{
@@ -17,7 +17,10 @@ export const routes: Routes = [
 	{
 		path: AppNavigation.DASHBOARD,
 		loadComponent: () => import("@core/pages").then((m) => m.DashboardComponent),
-		canActivate: [authGuard]
+		canActivate: [authGuard],
+		children: [
+			{ path: AppNavigation.ROOT, component: TasksComponent }
+		]
 	},
 	{
 		path: "**",

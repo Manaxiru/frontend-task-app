@@ -64,6 +64,26 @@ section.main-container {
 	}
 }
 
+/* MODULES */
+.module {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	section.main-container {
+		height: initial;
+		padding-inline: 0;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		// border-radius: var(--radius-mobile);
+	}
+	@media (min-width: 768px) {
+		// section.main-container {
+		// 	border-radius: var(--radius-desktop);
+		// }
+	}
+}
+
 /* FORM FIELDS */
 .mat-mdc-form-field {
 	@include responsive-font(
