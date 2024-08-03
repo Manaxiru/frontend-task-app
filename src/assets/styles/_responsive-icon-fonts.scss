@@ -1,5 +1,5 @@
 ///
-/// Viewport sized typography with minimum and maximum values
+/// Viewport sized icon with minimum and maximum values
 ///
 ///
 /// @param {Number}   $responsive  - Viewport-based size
@@ -8,23 +8,19 @@
 ///                                  (optional)
 /// @param {Number}   $fallback    - Fallback for viewport-
 ///                                  based units (optional)
-/// @param {Boolean}   $line-h     - If line height should be equal as font size for
-///                                  viewport-based units (optional)
+/// @param {Boolean}   $height      - If height should be equal as width (optional)
 /// @param {Boolean}   $important  - If font size should be !important (optional)
 ///
-/// @example scss - 5vw font size (with 50px fallback),
-///                 minumum of 35px and maximum of 150px
-///  @include responsive-font(5vw, 35px, 150px, 50px);
-///
-@mixin responsive-font($responsive, $min, $max: false, $fallback: false, $line-h: false, $important: false) {
+@mixin responsive-icon-font($responsive, $min, $max: false, $fallback: false, $height: false, $important: false) {
 	$responsive-unitless: $responsive / ($responsive - $responsive + 1);
 	$dimension: if(unit($responsive) == "vh", "height", "width");
 	$min-breakpoint: $min / $responsive-unitless * 100;
 
 	@media (max-#{$dimension}: #{$min-breakpoint}) {
 		font-size: $min if-important($important);
-		@if $line-h {
-			line-height: $min if-important($important);
+		width: $min if-important($important);
+		@if $height {
+			height: $min if-important($important);
 		}
 	}
 
@@ -33,22 +29,25 @@
 
 		@media (min-#{$dimension}: #{$max-breakpoint}) {
 			font-size: $max if-important($important);
-			@if $line-h {
-				line-height: $max if-important($important);
+			width: $max if-important($important);
+			@if $height {
+				height: $max if-important($important);
 			}
 		}
 	}
 
 	@if $fallback {
 		font-size: $fallback if-important($important);
-		@if $line-h {
-			line-height: $fallback if-important($important);
+		width: $fallback if-important($important);
+		@if $height {
+			height: $fallback if-important($important);
 		}
 	}
 
 	font-size: $responsive if-important($important);
-	@if $line-h {
-		line-height: $responsive if-important($important);
+	width: $responsive if-important($important);
+	@if $height {
+		height: $responsive if-important($important);
 	}
 }
 

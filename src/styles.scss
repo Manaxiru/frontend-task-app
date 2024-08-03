@@ -2,6 +2,7 @@
 @import "theme";
 @import "variables";
 @import "responsive-fonts";
+@import "responsive-icon-fonts";
 
 html,
 body {
@@ -218,16 +219,96 @@ mat-form-field {
 		}
 	}
 }
-
-.secondary-button {
-	// background: mat.get-theme-color($secondary-theme, primary) !important;
-	// background: mat.get-color-from-palette($secondary-palette-template) !important;
-	// color: mat.get-color-from-palette($secondary-palette-template, default-contrast) !important;
+/* Extended Fab */
+.mat-mdc-extended-fab {
+	@include responsive-font(1.06vw, $font-size-b1-mobile, $font-size-b1-desktop, $font-size-b1-desktop, false, true);
+	--mdc-extended-fab-label-text-tracking: 0;
+	--mdc-extended-fab-container-height: 40px;
+	height: calc(var(--mdc-extended-fab-container-height) - 6px) !important;
+	padding: var(--button-padding-h-mobile) !important;
+	--mdc-extended-fab-container-shape: var(--button-primary-radius-mobile);
+	mat-icon {
+		@include responsive-icon-font(
+			1.06vw,
+			$font-size-b1-mobile,
+			$font-size-b1-desktop,
+			$font-size-b1-desktop,
+			false,
+			true
+		);
+		height: auto !important;
+		margin-left: calc(var(--marge-between-3-mobile) - var(--button-padding-h-mobile)) !important;
+		margin-right: var(--marge-between-3-mobile) !important;
+	}
+	&.secondary-button {
+		@include responsive-font(
+			0.82vw,
+			$font-size-b2-mobile,
+			$font-size-b2-desktop,
+			$font-size-b2-desktop,
+			false,
+			true
+		);
+		--mdc-extended-fab-container-shape: var(--button-secondary-radius-mobile);
+		mat-icon {
+			@include responsive-icon-font(
+				0.82vw,
+				$font-size-b2-mobile,
+				$font-size-b2-desktop,
+				$font-size-b2-desktop,
+				false,
+				true
+			);
+		}
+	}
+	@media (min-width: 768px) {
+		height: var(--mdc-extended-fab-container-height) !important;
+		padding: var(--button-padding-h-desktop) !important;
+		--mdc-extended-fab-container-shape: var(--button-primary-radius-desktop);
+		mat-icon {
+			margin-left: calc(var(--marge-between-3-desktop) - var(--button-padding-h-desktop)) !important;
+			margin-right: var(--marge-between-3-desktop) !important;
+		}
+		&.secondary-button {
+			--mdc-extended-fab-container-shape: var(--button-secondary-radius-desktop);
+		}
+	}
 }
-.tertiary-button {
-	// background: mat.get-theme-color($tertiary-theme, primary) !important;
-	// background: mat.get-color-from-palette($tertiary-palette-template) !important;
-	// color: mat.get-color-from-palette($tertiary-palette-template, default-contrast) !important;
+/* Icon */
+.mat-mdc-icon-button {
+	@include responsive-icon-font(
+		1.52vw,
+		$font-size-h2-mobile,
+		$font-size-h2-desktop,
+		$font-size-h2-desktop,
+		true,
+		true
+	);
+	margin: 6px;
+	.mat-mdc-button-touch-target {
+		@include responsive-icon-font(
+			1.52vw,
+			$font-size-h2-mobile,
+			$font-size-h2-desktop,
+			$font-size-h2-desktop,
+			true,
+			true
+		);
+	}
+	mat-icon {
+		@include responsive-icon-font(
+			1.52vw,
+			$font-size-h2-mobile,
+			$font-size-h2-desktop,
+			$font-size-h2-desktop,
+			true,
+			true
+		);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 }
 
 /* DIALOGS */
@@ -288,5 +369,33 @@ mat-snack-bar-container {
 		.mdc-snackbar__label {
 			padding: var(--marge-between-2-desktop);
 		}
+	}
+}
+
+/* CHIPS */
+mat-chip.mat-mdc-chip.mat-mdc-standard-chip {
+	--mdc-chip-container-shape-radius: var(--button-primary-radius-mobile);
+	margin-block: 0;
+	.mat-mdc-chip-graphic {
+		height: auto;
+		width: auto;
+		padding-inline: 12px 4px !important;
+		.mat-mdc-chip-avatar {
+			@include responsive-icon-font(
+				0.82vw,
+				$font-size-b2-mobile,
+				$font-size-b2-desktop,
+				$font-size-b2-desktop,
+				true
+			);
+		}
+	}
+	--mdc-chip-label-text-tracking: 0;
+	--mdc-chip-label-text-weight: 500;
+	.mat-mdc-chip-action-label {
+		@include responsive-font(1.06vw, $font-size-b1-mobile, $font-size-b1-desktop, $font-size-b1-desktop, true);
+	}
+	@media (min-width: 768px) {
+		--mdc-chip-container-shape-radius: var(--button-primary-radius-desktop);
 	}
 }

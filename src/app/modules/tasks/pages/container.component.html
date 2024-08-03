@@ -1,0 +1,59 @@
+<section class="main-container">
+	<mat-card>
+		<mat-card-header>
+			<button mat-fab extended color="primary">
+				<mat-icon inline>add</mat-icon>
+				Crear nueva tarea
+			</button>
+		</mat-card-header>
+		<mat-card-content [class.compact]="!fullMode()">
+			<section class="panel pending"
+				[ngClass]="{initial: panel.LEFT === null && panel.RIGHT === null, expanded: panel.LEFT && fullMode()}">
+				<mat-accordion [hideToggle]="fullMode()" [class.full-mode]="fullMode()">
+					<mat-expansion-panel [expanded]="true" #matAccordionLeft>
+						<mat-expansion-panel-header [class.prevent-click]="fullMode()">
+							<mat-panel-title>
+								<mat-chip-set>
+									<mat-chip>
+										<span matChipAvatar></span>
+										Pendiente
+									</mat-chip>
+								</mat-chip-set>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+					</mat-expansion-panel>
+				</mat-accordion>
+			</section>
+			@if (fullMode()) {
+			<section class="expand-buttons">
+				<button mat-icon-button color="primary" class="right" [class.expanded]="panel.LEFT"
+					(click)="expanded('LEFT')">
+					<mat-icon>{{!panel.LEFT ? "keyboard_tab": "start"}}</mat-icon>
+				</button>
+				<mat-divider vertical></mat-divider>
+				<button mat-icon-button color="primary" class="left" [class.expanded]="panel.RIGHT"
+					(click)="expanded('RIGHT')">
+					<mat-icon>{{!panel.RIGHT ? "keyboard_tab": "start"}}</mat-icon>
+				</button>
+			</section>
+			}
+			<section class="panel completed"
+				[ngClass]="{initial: panel.LEFT === null && panel.RIGHT === null, expanded: panel.RIGHT && fullMode()}">
+				<mat-accordion [hideToggle]="fullMode()" [class.full-mode]="fullMode()">
+					<mat-expansion-panel [expanded]="true" #matAccordionRight>
+						<mat-expansion-panel-header [class.prevent-click]="fullMode()">
+							<mat-panel-title>
+								<mat-chip-set>
+									<mat-chip>
+										<span matChipAvatar></span>
+										Completado
+									</mat-chip>
+								</mat-chip-set>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+					</mat-expansion-panel>
+				</mat-accordion>
+			</section>
+		</mat-card-content>
+	</mat-card>
+</section>

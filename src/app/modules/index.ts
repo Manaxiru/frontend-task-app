@@ -1,5 +1,5 @@
-import { TasksComponent } from "./tasks/pages/tasks.component";
+import { ContainerComponent } from "./tasks/pages/container.component";
 
 export {
-	TasksComponent
+	ContainerComponent
 }
