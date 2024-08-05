@@ -1,5 +1,7 @@
-import { ContainerComponent } from "./tasks/pages/container.component";
+import { ContainerComponent } from "./tasks/pages/container/container.component";
+import * as TasksComponents from "./tasks/components/index";
 
 export {
-	ContainerComponent
+	ContainerComponent,
+	TasksComponents
 }

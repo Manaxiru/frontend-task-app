@@ -30,8 +30,8 @@ export class UserService extends GenericCrud {
 				tap({
 					next: () => this.setCurrentUser(this.localStorageService.getItem()),
 					error: () => {
-						this.setCurrentUser(null);
 						this.localStorageService.clear();
+						this.setCurrentUser(null);
 					}
 				})
 			);

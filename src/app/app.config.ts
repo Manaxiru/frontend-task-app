@@ -3,7 +3,7 @@ import { registerLocaleData } from "@angular/common";
 import localeEs from "@angular/common/locales/es";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
-import { provideRouter } from "@angular/router";
+import { PreloadAllModules, provideRouter, withPreloading } from "@angular/router";
 import { EMPTY } from "rxjs";
 
 import { routes } from "./app.routes";
@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
 			multi: true
 		},
 		{ provide: LOCALE_ID, useValue: "es-VE" },
-		provideRouter(routes),
+		provideRouter(routes, withPreloading(PreloadAllModules)),
 		provideHttpClient(
 			withInterceptors([loadingInterceptor, apiInterceptor, tokenInterceptor, errorInterceptor])
 		),

@@ -43,8 +43,8 @@ export class AuthService {
 		this.userService.setCurrentUser(user);
 	}
 
-	private purgeAuth() {
-		this.localStorageService.clear()
+	purgeAuth() {
+		this.localStorageService.clear();
 		this.userService.setCurrentUser(null);
 	}
 }

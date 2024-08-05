@@ -2,29 +2,32 @@
 	<mat-card>
 		<mat-card-header>
 			<button mat-fab extended color="primary">
-				<mat-icon inline>add</mat-icon>
+				<mat-icon inline> add </mat-icon>
 				Crear nueva tarea
 			</button>
 		</mat-card-header>
-		<mat-card-content [class.compact]="!fullMode()">
+		<mat-card-content [class.compact]="!fullModeSignal()">
 			<section class="panel pending"
-				[ngClass]="{initial: panel.LEFT === null && panel.RIGHT === null, expanded: panel.LEFT && fullMode()}">
-				<mat-accordion [hideToggle]="fullMode()" [class.full-mode]="fullMode()">
-					<mat-expansion-panel [expanded]="true" #matAccordionLeft>
-						<mat-expansion-panel-header [class.prevent-click]="fullMode()">
+				[ngClass]="{initial: panel.LEFT === null && panel.RIGHT === null, expanded: panel.LEFT && fullModeSignal()}">
+				<mat-accordion [hideToggle]="fullModeSignal()" [class.full-mode]="fullModeSignal()">
+					<mat-expansion-panel expanded #matAccordionLeft>
+						<mat-expansion-panel-header [class.prevent-click]="fullModeSignal()">
 							<mat-panel-title>
 								<mat-chip-set>
 									<mat-chip>
 										<span matChipAvatar></span>
-										Pendiente
+										Pendiente {{tasksByFilterSignal().PENDING.length}}
 									</mat-chip>
 								</mat-chip-set>
 							</mat-panel-title>
 						</mat-expansion-panel-header>
+						@if (matAccordionLeft.expanded) {
+						<app-task [userTasks]="tasksByFilterSignal().PENDING" (reloadTasks)="readAll()"></app-task>
+						}
 					</mat-expansion-panel>
 				</mat-accordion>
 			</section>
-			@if (fullMode()) {
+			@if (fullModeSignal()) {
 			<section class="expand-buttons">
 				<button mat-icon-button color="primary" class="right" [class.expanded]="panel.LEFT"
 					(click)="expanded('LEFT')">
@@ -38,19 +41,22 @@
 			</section>
 			}
 			<section class="panel completed"
-				[ngClass]="{initial: panel.LEFT === null && panel.RIGHT === null, expanded: panel.RIGHT && fullMode()}">
-				<mat-accordion [hideToggle]="fullMode()" [class.full-mode]="fullMode()">
-					<mat-expansion-panel [expanded]="true" #matAccordionRight>
-						<mat-expansion-panel-header [class.prevent-click]="fullMode()">
+				[ngClass]="{initial: panel.LEFT === null && panel.RIGHT === null, expanded: panel.RIGHT && fullModeSignal()}">
+				<mat-accordion [hideToggle]="fullModeSignal()" [class.full-mode]="fullModeSignal()">
+					<mat-expansion-panel expanded #matAccordionRight>
+						<mat-expansion-panel-header [class.prevent-click]="fullModeSignal()">
 							<mat-panel-title>
 								<mat-chip-set>
 									<mat-chip>
 										<span matChipAvatar></span>
-										Completado
+										Completado {{tasksByFilterSignal().COMPLETED.length}}
 									</mat-chip>
 								</mat-chip-set>
 							</mat-panel-title>
 						</mat-expansion-panel-header>
+						@if (matAccordionRight.expanded) {
+						<app-task [userTasks]="tasksByFilterSignal().COMPLETED" (reloadTasks)="readAll()"></app-task>
+						}
 					</mat-expansion-panel>
 				</mat-accordion>
 			</section>
