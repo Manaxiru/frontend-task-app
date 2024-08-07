@@ -12,6 +12,8 @@ export class TasksService extends GenericCrud<ITask> {
 
 	constructor() { super(BackendModules.TASKS); }
 
+	override create(data: Partial<ITask>): Observable<IResponse<ITask>> { return super.create(data); }
 	override readAll(): Observable<IResponse<ITask[]>> { return super.readAll(); }
+	override update(id: string | number, data: Partial<ITask>): Observable<IResponse<ITask>> { return super.update(id, data); }
 	override delete(id: string | number): Observable<IResponse<ITask>> { return super.delete(id); }
 }

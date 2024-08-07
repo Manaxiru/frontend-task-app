@@ -1,10 +1,14 @@
 <section class="main-container">
 	<mat-card>
-		<mat-card-header>
-			<button mat-fab extended color="primary">
+		<mat-card-header [class.with-form]="showForm">
+			@if (showForm) {
+			<app-form @showFormTrigger (reloadTasks)="$event ? readAll() : showForm = false"></app-form>
+			} @else {
+			<button @showAddButtonTrigger mat-fab extended color="primary" (click)="showForm = !showForm">
 				<mat-icon inline> add </mat-icon>
 				Crear nueva tarea
 			</button>
+			}
 		</mat-card-header>
 		<mat-card-content [class.compact]="!fullModeSignal()">
 			<section class="panel pending"

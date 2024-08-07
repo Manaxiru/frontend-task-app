@@ -93,11 +93,21 @@ section.main-container {
 	--mat-form-field-container-vertical-padding: var(--marge-between-2-mobile);
 	.mdc-notched-outline__notch {
 		--mat-mdc-form-field-floating-label-scale: 0.9;
-		.mat-mdc-floating-label {
+	}
+	&:has(input) {
+		.mdc-notched-outline__notch .mat-mdc-floating-label {
 			top: 50% !important;
 			&.mdc-floating-label--float-above {
 				transform: translateY(calc(calc(4px + var(--mat-form-field-container-height) / 2) * -1))
 					scale(var(--mat-mdc-form-field-floating-label-scale)) !important;
+			}
+		}
+	}
+	&:has(textarea) {
+		.mdc-notched-outline__notch .mat-mdc-floating-label {
+			top: 50%;
+			&.mdc-floating-label--float-above {
+				top: calc((var(--mat-form-field-container-height) / 2) - 5px);
 			}
 		}
 	}
@@ -136,6 +146,55 @@ mat-form-field {
 	--mdc-outlined-text-field-container-shape: var(--radius-mobile);
 	@media (min-width: 768px) {
 		--mdc-outlined-text-field-container-shape: var(--radius-desktop);
+	}
+}
+
+/* CHECKBOX */
+mat-checkbox.mat-mdc-checkbox {
+	.mdc-form-field {
+		@include responsive-font(0.94vw, $font-size-p2-mobile, $font-size-p2-desktop, $font-size-p2-desktop);
+		font-weight: 600;
+		border-radius: var(--radius-mobile);
+		border: 1px solid var(--mdc-outlined-text-field-outline-color);
+		padding: 8px 20px;
+		gap: 4px;
+	}
+	&.secondary-checkbox {
+		.mdc-form-field {
+			padding: 0;
+			border: unset;
+		}
+	}
+
+	.mdc-checkbox {
+		@include responsive-icon-font(
+			1.17vw,
+			$input-font-size-mobile,
+			$input-font-size-desktop,
+			$input-font-size-desktop,
+			true
+		);
+		padding: 0;
+		margin: 0;
+		flex-basis: auto;
+		--mdc-checkbox-unselected-pressed-state-layer-color: none !important;
+		--mdc-checkbox-unselected-focus-state-layer-color: none !important;
+		.mat-mdc-checkbox-touch-target,
+		input,
+		.mdc-checkbox__background {
+			width: inherit;
+			height: inherit;
+		}
+		.mdc-checkbox__background {
+			top: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+	@media (min-width: 768px) {
+		.mdc-form-field {
+			border-radius: var(--radius-desktop);
+		}
 	}
 }
 
@@ -328,6 +387,7 @@ mat-form-field {
 }
 
 /* DIALOGS */
+/* General */
 mat-dialog-container {
 	--mdc-dialog-container-shape: var(--radius-mobile);
 	.mdc-dialog__title::before {
@@ -346,14 +406,14 @@ mat-dialog-container {
 		}
 	}
 }
-
+/* Loading */
 .loading-dialog {
 	.mat-mdc-dialog-surface {
 		background: transparent !important;
 		box-shadow: none !important;
 	}
 }
-
+/* Confirm */
 .confirm-dialog {
 	mat-dialog-actions {
 		padding-top: 0;

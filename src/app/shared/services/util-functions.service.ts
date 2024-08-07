@@ -23,6 +23,15 @@ export class UtilFunctionsService {
 
 	validateFormInHTML = (control: AbstractControl): boolean => control.invalid && (control.dirty || control.touched);
 
+	getFormTouchedValues(form: FormGroup): Object {
+		let formValue: any;
+		Object.entries(form.controls).forEach(([key, value]) => {
+			if (value.untouched) return;
+			formValue = { ...formValue, [key]: value.value };
+		});
+		return formValue;
+	}
+
 	errorText(errors: ValidationErrors | null): string {
 		if (errors) {
 			return Object.entries(errors).map(

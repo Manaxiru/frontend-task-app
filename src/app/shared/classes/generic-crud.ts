@@ -36,7 +36,7 @@ export abstract class GenericCrud<T = any> {
 	}
 
 	protected update(id: string | number, data: Partial<T>, withContextToken: boolean = true): Observable<IResponse<T>> {
-		return this.http.patch<IResponse<T>>(
+		return this.http.put<IResponse<T>>(
 			this.serviceModuleURL + `/${id}`,
 			data,
 			{ context: new HttpContext().set(TOKEN_ENABLED, withContextToken) }

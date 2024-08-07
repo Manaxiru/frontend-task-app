@@ -12,7 +12,7 @@
 	</button>
 	} @else {
 	<section class="actions">
-		<button mat-flat-button color="primary" type="button" class="cancel" (click)="close()"> Cancelar </button>
+		<button mat-flat-button color="primary" type="button" (click)="close()"> Cancelar </button>
 		<button mat-flat-button color="primary" type="submit"
 			[disabled]="(loadingService.getLoading() | async) || form.invalid">
 			Confirmar

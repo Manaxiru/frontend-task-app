@@ -1,0 +1,23 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+	<mat-form-field hideRequiredMarker appearance="outline">
+		<mat-label> Ingresar título </mat-label>
+		<input matInput type="text" placeholder="Título de la tarea" formControlName="title">
+		@if (utilFunctionsService.validateFormInHTML(form.get("title")!)) {
+		<mat-error>{{ utilFunctionsService.errorText(form.get("title")!.errors) }}</mat-error>
+		}
+	</mat-form-field>
+	<mat-form-field hideRequiredMarker appearance="outline">
+		<mat-label> Ingresar descripción </mat-label>
+		<textarea matInput cdkTextareaAutosize type="text" placeholder="Descripción de la tarea"
+			formControlName="description">
+		</textarea>
+		@if (utilFunctionsService.validateFormInHTML(form.get("description")!)) {
+		<mat-error>{{ utilFunctionsService.errorText(form.get("description")!.errors) }}</mat-error>
+		}
+	</mat-form-field>
+	<mat-checkbox labelPosition="before" color="primary" formControlName="completed"> Completada </mat-checkbox>
+	<section class="actions">
+		<button mat-flat-button color="primary" type="button" (click)="close()"> Cancelar </button>
+		<button mat-flat-button color="primary" type="submit"> Crear </button>
+	</section>
+</form>

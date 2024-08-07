@@ -1,0 +1,26 @@
+:host {
+	width: 100%;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	row-gap: var(--marge-between-3-mobile);
+	padding: 8px;
+	.actions {
+		display: flex;
+		justify-content: center;
+		margin-top: var(--marge-between-2-mobile);
+		column-gap: var(--marge-between-1-mobile);
+		> button {
+			min-width: 120px;
+		}
+	}
+	@media (min-width: 768px) {
+		row-gap: var(--marge-between-3-desktop);
+		.actions {
+			margin-top: var(--marge-between-2-desktop);
+			column-gap: var(--marge-between-1-desktop);
+		}
+	}
+}

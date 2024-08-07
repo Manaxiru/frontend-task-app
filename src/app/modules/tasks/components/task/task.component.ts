@@ -1,11 +1,17 @@
-import { Component, input, OnInit, output, TemplateRef, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, OnInit, output, signal, TemplateRef, untracked, viewChild, WritableSignal } from '@angular/core';
 import { DatePipe, NgClass } from '@angular/common';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogActions, MatDialogClose, MatDialogTitle } from '@angular/material/dialog';
-import { NotificationService } from '@app/shared/services';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { NotificationService, UtilFunctionsService } from '@app/shared/services';
+import { ModelFormGroup } from '@app/shared/interfaces';
 import { TasksService } from '../../services';
 import { ITask } from '../../interfaces';
 
@@ -15,38 +21,109 @@ import { ITask } from '../../interfaces';
 	imports: [
 		NgClass,
 		DatePipe,
+		ReactiveFormsModule,
 		MatCardModule,
 		MatButtonModule,
 		MatIconModule,
 		MatTooltipModule,
+		MatFormFieldModule,
+		MatInputModule,
 		MatDialogTitle,
 		MatDialogActions,
-		MatDialogClose
+		MatDialogClose,
+		TextFieldModule
 	],
 	templateUrl: './task.component.html',
-	styleUrl: './task.component.scss'
+	styleUrl: './task.component.scss',
+	animations: [
+		trigger("showFormTrigger", [
+			transition(":enter", [
+				style({ opacity: 0 }),
+				animate(500, style({ opacity: 1 }))
+			]),
+			transition(":leave", [animate(125, style({ height: 0, opacity: 0 }))])
+		]),
+		trigger("showCardTrigger", [
+			transition(":enter", [
+				style({ height: 0, opacity: 0 }),
+				animate(125, style({ height: '*', opacity: 1 }))
+			])
+		])
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskComponent implements OnInit {
 	tasks = input.required<ITask[]>({ alias: "userTasks" });
+	tasksAdjustedSignal: WritableSignal<(ITask & { editMode: boolean })[]>;
 	onTaskChange = output({ alias: "reloadTasks" });
 
 	taskSelected: ITask | null;
+
+	form!: ModelFormGroup<Pick<ITask, "id" | "title" | "description">>;
 
 	confirmDialog = viewChild<TemplateRef<any>>("confirmDialog");
 	isDialogOpen: boolean;
 
 	constructor(
+		private fb: FormBuilder,
 		private tasksService: TasksService,
 		private matDialog: MatDialog,
-		private notificationService: NotificationService
+		private notificationService: NotificationService,
+		public utilFunctionsService: UtilFunctionsService
 	) {
 		this.taskSelected = null;
 		this.isDialogOpen = false;
+		this.tasksAdjustedSignal = signal([]);
+		effect(() => {
+			this.tasks();
+			untracked(() => this.tasksAdjustedSignal.set(this.tasks().map(x => ({ ...x, editMode: false }))));
+		});
 	}
 
 	ngOnInit(): void {
 		this.taskSelected = null;
-		this.isDialogOpen = false;
+	}
+
+	private createForm(task: ITask) {
+		this.form = this.fb.group({
+			id: ['', Validators.required],
+			title: ['', Validators.required],
+			description: ['', Validators.required]
+		});
+		this.form.patchValue(task);
+	}
+
+	editTask(task: ITask) {
+		this.createForm(task);
+		this.taskSelected = task;
+		this.tasksAdjustedSignal.update(x => x.map(y => ({ ...y, editMode: y.id === task.id })));
+	}
+
+	completed(task: ITask) {
+		this.tasksService.update(task.id, { completed: !task.completed }).subscribe(res => {
+			if (res.success) {
+				this.notificationService.openSnackBar(res.message, "SUCCESS");
+				this.taskSelected = null;
+				this.onTaskChange.emit();
+			}
+		});
+	}
+
+	back() {
+		this.taskSelected = null;
+		this.tasksAdjustedSignal.update(x => x.map(y => ({ ...y, editMode: false })));
+	}
+
+	onSubmit() {
+		if (!this.utilFunctionsService.validateForm(this.form)) return;
+		const formValue = this.utilFunctionsService.getFormTouchedValues(this.form) as ITask;
+		this.tasksService.update(this.form.value.id!, formValue).subscribe(res => {
+			if (res.success) {
+				this.notificationService.openSnackBar(res.message, "SUCCESS");
+				this.taskSelected = null;
+				this.onTaskChange.emit();
+			}
+		});
 	}
 
 	confirmAction(task: ITask) {

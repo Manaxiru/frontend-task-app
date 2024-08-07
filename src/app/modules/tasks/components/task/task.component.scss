@@ -8,14 +8,14 @@
 	padding: 1px 8px;
 }
 
-mat-card {
+:host mat-card {
 	border-radius: var(--radius-mobile);
 	background: rgba(250, 250, 250, 0.75);
 	box-shadow: 0 0px 0px 1px rgba(255, 186, 0, 0.5);
 	padding: var(--marge-between-3-mobile);
 	border: 1px solid rgba(255, 255, 255, 0.8);
 	transition: all 0.2s linear;
-	&:is(:hover, .selected) {
+	&:not(.editing):is(:hover, .selected) {
 		background: rgba(255, 186, 0, 0.35);
 		transform: scale(1.02);
 		margin: 8px;
@@ -31,7 +31,7 @@ mat-card {
 			background: rgba(255, 186, 0, 0.5);
 		}
 	}
-	&.completed {
+	&:not(.editing).completed {
 		box-shadow: 0 0px 0px 1px rgba(255, 102, 0, 0.5);
 		&:is(:hover, .selected) {
 			background: rgba(255, 102, 0, 0.35);
@@ -40,8 +40,27 @@ mat-card {
 			}
 		}
 	}
+	&.editing {
+		background: rgba(250, 250, 250, 0.75);
+	}
 	mat-card-header {
 		padding: 0;
+		mat-card-title-group > ::ng-deep div {
+			width: 100%;
+		}
+		mat-card-title {
+			display: flex;
+			justify-content: space-between;
+			button {
+				--mdc-fab-small-container-color: #{mat.get-color-from-palette($atom-challenge-fe-template-primary)};
+				&.completed {
+					--mdc-fab-small-container-color: #{mat.get-color-from-palette(
+							$atom-challenge-fe-template-primary,
+							500
+						)};
+				}
+			}
+		}
 	}
 	mat-card-content {
 		padding: 0;
@@ -64,10 +83,18 @@ mat-card {
 			&.delete {
 				background: #{mat.get-color-from-palette($warn-palette-template)};
 			}
+			&.back {
+				background: #{mat.get-color-from-palette($atom-challenge-fe-template-primary, 500)};
+			}
 		}
 	}
 	@media (min-width: 768px) {
 		padding: var(--marge-between-3-desktop);
 		border-radius: var(--radius-desktop);
 	}
+}
+
+form {
+	display: flex;
+	flex-direction: column;
 }

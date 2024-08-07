@@ -1,10 +1,15 @@
-@for (item of tasks(); track item.id) {
-<mat-card [ngClass]="{completed: item.completed, selected: taskSelected?.id === item.id}"
+@for (item of tasksAdjustedSignal(); track item.id) {
+<mat-card [ngClass]="{completed: item.completed, selected: taskSelected?.id === item.id, editing: item.editMode}"
 	(click)="taskSelected?.id !== item.id ? taskSelected = item : taskSelected = null">
-	<mat-card-header>
+	@if (!item.editMode) {
+	<mat-card-header @showCardTrigger>
 		<mat-card-title-group>
 			<mat-card-title>
 				<h3> {{ item.title }} </h3>
+				<button mat-mini-fab [matTooltip]="!item.completed ? 'Completar' : 'Quitar completado'"
+					[class.completed]="item.completed" (click)="completed(item)">
+					<mat-icon> {{!item.completed ? "done_all" : "remove_done"}} </mat-icon>
+				</button>
 			</mat-card-title>
 			<mat-card-subtitle>
 				<p class="p4">
@@ -18,17 +23,46 @@
 			</mat-card-subtitle>
 		</mat-card-title-group>
 	</mat-card-header>
-	<mat-card-content>
+	<mat-card-content @showCardTrigger>
 		<p class="p2"> {{ item.description }}</p>
 	</mat-card-content>
-	<mat-card-actions align="end">
-		<button mat-mini-fab matTooltip="Editar" class="edit">
+	<mat-card-actions align="end" @showCardTrigger>
+		<button mat-mini-fab matTooltip="Editar" class="edit" (click)="$event.stopPropagation(); editTask(item)">
 			<mat-icon> edit </mat-icon>
 		</button>
 		<button mat-mini-fab matTooltip="Eliminar" class="delete" (click)="confirmAction(item)">
 			<mat-icon> delete </mat-icon>
 		</button>
 	</mat-card-actions>
+	} @else {
+	<mat-card-content @showFormTrigger>
+		<form [formGroup]="form">
+			<mat-form-field hideRequiredMarker appearance="outline">
+				<input matInput type="text" placeholder="Título de la tarea" formControlName="title">
+				@if (utilFunctionsService.validateFormInHTML(form.get("title")!)) {
+				<mat-error>{{ utilFunctionsService.errorText(form.get("title")!.errors) }}</mat-error>
+				}
+			</mat-form-field>
+			<mat-form-field hideRequiredMarker appearance="outline">
+				<textarea matInput cdkTextareaAutosize type="text" placeholder="Descripción de la tarea"
+					formControlName="description">
+				</textarea>
+				@if (utilFunctionsService.validateFormInHTML(form.get("description")!)) {
+				<mat-error>{{ utilFunctionsService.errorText(form.get("description")!.errors) }}</mat-error>
+				}
+			</mat-form-field>
+		</form>
+	</mat-card-content>
+	<mat-card-actions align="end" @showFormTrigger>
+		<button mat-mini-fab matTooltip="Regresar" class="back" (click)="$event.stopPropagation(); back()">
+			<mat-icon> keyboard_return </mat-icon>
+		</button>
+		<button mat-mini-fab matTooltip="Guardar" color="primary" (click)="$event.stopPropagation(); onSubmit()"
+			[disabled]="form.pristine">
+			<mat-icon> save </mat-icon>
+		</button>
+	</mat-card-actions>
+	}
 </mat-card>
 }
 
