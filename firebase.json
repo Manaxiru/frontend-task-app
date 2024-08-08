@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/frontend-task-app/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
