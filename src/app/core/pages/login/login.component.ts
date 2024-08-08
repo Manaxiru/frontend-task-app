@@ -20,7 +20,7 @@ import { FormComponent, RegistrationModalComponent } from './components';
 	styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-	isDialogOpen: boolean;
+	private isDialogOpen: boolean;
 
 	constructor(
 		private authService: AuthService,

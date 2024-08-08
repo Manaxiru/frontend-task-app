@@ -52,8 +52,8 @@ import { FormComponent, TaskComponent } from '../../components';
 	host: { class: "module" }
 })
 export class ContainerComponent implements OnInit, OnDestroy {
-	destroyed: Subject<void>;
-	minWidth: string;
+	private destroyed: Subject<void>;
+	private readonly minWidth: string;
 	fullModeSignal: WritableSignal<boolean>;
 
 	@ViewChild("matAccordionLeft") matAccordionLeft!: MatExpansionPanel;
@@ -62,7 +62,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
 
 	showForm: boolean;
 
-	tasksSignal: WritableSignal<ITask[]>;
+	private tasksSignal: WritableSignal<ITask[]>;
 	tasksByFilterSignal: Signal<Record<"PENDING" | "COMPLETED", ITask[]>>;
 
 	constructor(

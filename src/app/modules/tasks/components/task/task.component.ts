@@ -67,7 +67,7 @@ export class TaskComponent implements OnInit {
 	form!: ModelFormGroup<Pick<ITask, "id" | "title" | "description">>;
 
 	private confirmDialog = viewChild<TemplateRef<any>>("confirmDialog");
-	isDialogOpen: boolean;
+	private isDialogOpen: boolean;
 
 	constructor(
 		private fb: FormBuilder,

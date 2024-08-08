@@ -23,7 +23,7 @@ import { Constants } from "@shared/enums";
 	`
 })
 export class AppComponent implements OnInit {
-	title = "Task App";
+	private readonly title = "Task App";
 	image = Constants.IMG_ASSETS + "/bg.svg";
 	private loadingDialog!: MatDialogRef<LoadingComponent>;
 	private isLoading: boolean;
