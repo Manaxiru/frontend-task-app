@@ -37,7 +37,8 @@ export class UserService extends GenericCrud {
 					next: () => {
 						if (this.utilFunctionsService.isValidToken(this.localStorageService.getItem()))
 							this.setCurrentUser(this.localStorageService.getItem());
-						this.clearCurrentUser();
+						else
+							this.clearCurrentUser();
 					},
 					error: () => this.clearCurrentUser()
 				})
