@@ -5,22 +5,24 @@
 form {
 	display: flex;
 	flex-direction: column;
-	row-gap: var(--marge-between-3-mobile);
+	row-gap: 5px;
 	padding: 8px;
+	mat-checkbox {
+		text-align: center;
+		margin-top: -5px;
+	}
 	.actions {
 		display: flex;
 		justify-content: center;
-		margin-top: var(--marge-between-2-mobile);
-		column-gap: var(--marge-between-1-mobile);
+		margin-top: 4px;
+		column-gap: calc(var(--marge-h-mobile) * 2);
 		> button {
 			min-width: 120px;
 		}
 	}
 	@media (min-width: 768px) {
-		row-gap: var(--marge-between-3-desktop);
 		.actions {
-			margin-top: var(--marge-between-2-desktop);
-			column-gap: var(--marge-between-1-desktop);
+			column-gap: calc(var(--marge-h-desktop) * 2);
 		}
 	}
 }

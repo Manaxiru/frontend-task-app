@@ -61,7 +61,7 @@
 				mat-chip {
 					background: rgba(255, 186, 0, 0.1);
 					span[matChipAvatar] {
-						background: #{mat.get-color-from-palette($atom-challenge-fe-template-primary, 500)};
+						background: mat.get-color-from-palette($atom-challenge-fe-template-primary, 500);
 					}
 				}
 			}
@@ -69,7 +69,7 @@
 				mat-chip {
 					background: rgba(255, 102, 0, 0.1);
 					span[matChipAvatar] {
-						background: #{mat.get-color-from-palette($atom-challenge-fe-template-primary)};
+						background: mat.get-color-from-palette($atom-challenge-fe-template-primary);
 					}
 				}
 			}

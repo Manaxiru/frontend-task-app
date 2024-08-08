@@ -3,7 +3,7 @@ header {
 	box-shadow: 0 8px 32px 0 rgba(255, 102, 0, 0.25);
 	backdrop-filter: blur(8px);
 	border: 1px solid rgba(255, 255, 255, 0.75);
-	padding: var(--marge-between-2-mobile);
+	padding: var(--marge-between-2-mobile) 5%;
 	mat-toolbar-row {
 		display: flex;
 		justify-content: space-between;
@@ -14,23 +14,28 @@ header {
 			align-items: center;
 			flex-wrap: wrap;
 			gap: var(--marge-between-2-mobile);
+			margin-left: auto;
+			> div {
+				text-align: end;
+				margin-left: auto;
+			}
 			button {
 				margin-left: auto;
 			}
 		}
 	}
 	@media (min-width: 768px) {
-		padding: var(--marge-between-2-mobile);
+		padding-block: var(--marge-between-2-desktop);
 		mat-toolbar-row {
 			.user-info {
-				gap: var(--marge-between-2-mobile);
+				gap: var(--marge-between-2-desktop);
 			}
 		}
 	}
 }
 
 section.container {
-	padding-inline: 10%;
+	padding-inline: 5%;
 	flex-grow: 1;
 	display: flex;
 	margin-bottom: var(--marge-h-mobile);

@@ -81,6 +81,16 @@ section.main-container {
 	}
 }
 
+/* CARD */
+mat-card.mat-mdc-card {
+	mat-card-title {
+		--mat-card-title-text-tracking: 0;
+	}
+	mat-card-subtitle {
+		--mat-card-subtitle-text-tracking: 0;
+	}
+}
+
 /* FORM FIELDS */
 .mat-mdc-form-field {
 	@include responsive-font(
@@ -93,6 +103,7 @@ section.main-container {
 	);
 	--mat-form-field-container-text-weight: 500;
 	--mat-form-field-container-vertical-padding: var(--marge-between-2-mobile);
+	--mat-form-field-container-text-tracking: 0;
 	.mdc-notched-outline__notch {
 		--mat-mdc-form-field-floating-label-scale: 0.9;
 	}
@@ -146,6 +157,7 @@ mat-form-field {
 /* Outline */
 .mdc-text-field--outlined {
 	--mdc-outlined-text-field-container-shape: var(--radius-mobile);
+	--mdc-outlined-text-field-label-text-tracking: 0;
 	@media (min-width: 768px) {
 		--mdc-outlined-text-field-container-shape: var(--radius-desktop);
 	}
@@ -392,6 +404,8 @@ mat-checkbox.mat-mdc-checkbox {
 /* General */
 mat-dialog-container {
 	--mdc-dialog-container-shape: var(--radius-mobile);
+	--mdc-dialog-subhead-tracking: 0;
+	--mdc-dialog-supporting-text-tracking: 0;
 	.mdc-dialog__title::before {
 		content: none !important;
 	}
@@ -487,4 +501,10 @@ mat-chip.mat-mdc-chip.mat-mdc-standard-chip {
 	@media (min-width: 768px) {
 		--mdc-chip-container-shape-radius: var(--button-primary-radius-desktop);
 	}
+}
+
+/* ACCORDION */
+mat-accordion {
+	--mat-expansion-header-text-tracking: 0;
+	--mat-expansion-container-text-tracking: 0;
 }

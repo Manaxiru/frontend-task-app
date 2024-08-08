@@ -24,6 +24,6 @@ export const routes: Routes = [
 	},
 	{
 		path: "**",
-		loadComponent: () => import("@core/pages").then((m) => m.LoginComponent)
+		redirectTo: AppNavigation.LOGIN
 	}
 ];

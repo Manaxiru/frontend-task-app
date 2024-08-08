@@ -11,7 +11,7 @@
 		</button>
 		}
 		<mat-card-title-group>
-			<mat-card-title>
+			<mat-card-title cdkDragHandle>
 				<h3> {{ item.title }} </h3>
 				<button mat-mini-fab [matTooltip]="!item.completed ? 'Completar' : 'Quitar completado'"
 					[class.completed]="item.completed" (click)="completed(item)">

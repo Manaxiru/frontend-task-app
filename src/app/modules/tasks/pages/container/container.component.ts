@@ -39,13 +39,13 @@ import { FormComponent, TaskComponent } from '../../components';
 				animate(500, style({ "max-height": "100vh", height: "100%", opacity: 1 }))
 			]),
 			transition(":leave", [
-				animate(125, style({ "max-height": "100vh", height: 0, opacity: 0 }))
+				animate(250, style({ "max-height": "100vh", height: 0, opacity: 0 }))
 			])
 		]),
 		trigger("showAddButtonTrigger", [
 			transition(":enter", [
 				style({ opacity: 0 }),
-				animate("125ms 125ms", style({ opacity: 1 }))
+				animate("250ms 250ms", style({ opacity: 1 }))
 			])
 		])
 	],
@@ -73,8 +73,8 @@ export class ContainerComponent implements OnInit, OnDestroy {
 		this.destroyed = new Subject<void>();
 		this.panel = { LEFT: null, RIGHT: null };
 		this.showForm = false;
-		// 327px Card Flexbox + Expand Buttons + Padding + Container Padding 10%;
-		this.minWidth = "940px";
+		// 327px Card Flexbox + Expand Buttons + Padding + Container Padding 5%;
+		this.minWidth = "840px";
 		this.fullModeSignal = signal(false);
 		this.tasksSignal = signal([]);
 		this.breakpointObserver
