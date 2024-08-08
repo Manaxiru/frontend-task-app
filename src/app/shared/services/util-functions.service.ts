@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { IUser } from '@shared/interfaces';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class UtilFunctionsService {
+
+	isValidToken(localStorage: IUser | null): boolean {
+		if (!localStorage) return false;
+		const today = new Date();
+		return localStorage.expirationTime > today.getTime();
+	}
 
 	validateForm(form: FormGroup): boolean {
 		if (form.invalid) {

@@ -21,9 +21,8 @@ import { LoadingService, UtilFunctionsService } from '@app/shared/services';
 })
 export class FormComponent implements OnInit {
 	@Input() value!: { email: string };
-	@Output() formValue = new EventEmitter<{ email: string }>();
+	@Output() private formValue = new EventEmitter<{ email: string }>();
 	form!: FormGroup;
-
 
 	constructor(
 		private fb: FormBuilder,

@@ -1,8 +1,15 @@
 @for (item of tasksAdjustedSignal(); track item.id) {
-<mat-card [ngClass]="{completed: item.completed, selected: taskSelected?.id === item.id, editing: item.editMode}"
-	(click)="taskSelected?.id !== item.id ? taskSelected = item : taskSelected = null">
+<mat-card
+	[ngClass]="{completed: item.completed, selected: taskSelected?.id === item.id, editing: item.editMode, dragabble: showDraggable()}"
+	(click)="taskSelected?.id !== item.id ? taskSelected = item : taskSelected = null" cdkDrag [cdkDragData]="item"
+	(cdkDragStarted)="onTaskDragChange.emit()" [cdkDragDisabled]="item.editMode || !showDraggable()">
 	@if (!item.editMode) {
 	<mat-card-header @showCardTrigger>
+		@if (showDraggable()) {
+		<button mat-icon-button cdkDragHandle class="drag-indicator">
+			<mat-icon> drag_indicator </mat-icon>
+		</button>
+		}
 		<mat-card-title-group>
 			<mat-card-title>
 				<h3> {{ item.title }} </h3>
@@ -35,6 +42,7 @@
 		</button>
 	</mat-card-actions>
 	} @else {
+	<!-- <span cdkDragHandle style="display: none;"></span> -->
 	<mat-card-content @showFormTrigger>
 		<form [formGroup]="form">
 			<mat-form-field hideRequiredMarker appearance="outline">
@@ -64,6 +72,8 @@
 	</mat-card-actions>
 	}
 </mat-card>
+} @empty {
+<p class="p3"> No posee tareas </p>
 }
 
 <ng-template #confirmDialog>

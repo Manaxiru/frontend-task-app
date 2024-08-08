@@ -26,7 +26,11 @@
 							</mat-panel-title>
 						</mat-expansion-panel-header>
 						@if (matAccordionLeft.expanded) {
-						<app-task [userTasks]="tasksByFilterSignal().PENDING" (reloadTasks)="readAll()"></app-task>
+						<app-task [userTasks]="tasksByFilterSignal().PENDING" (reloadTasks)="readAll()" cdkDropList
+							id="pendingTasks" [cdkDropListConnectedTo]="['completedTasks']"
+							[showDraggable]="fullModeSignal()" (draggingTasks)="expanded('BOTH')"
+							[cdkDropListEnterPredicate]="pendingPredicate" (cdkDropListDropped)="drop($event)">
+						</app-task>
 						}
 					</mat-expansion-panel>
 				</mat-accordion>
@@ -59,7 +63,11 @@
 							</mat-panel-title>
 						</mat-expansion-panel-header>
 						@if (matAccordionRight.expanded) {
-						<app-task [userTasks]="tasksByFilterSignal().COMPLETED" (reloadTasks)="readAll()"></app-task>
+						<app-task [userTasks]="tasksByFilterSignal().COMPLETED" (reloadTasks)="readAll()" cdkDropList
+							id="completedTasks" [cdkDropListConnectedTo]="['pendingTasks']"
+							[showDraggable]="fullModeSignal()" (draggingTasks)="expanded('BOTH')"
+							[cdkDropListEnterPredicate]="completedPredicate" (cdkDropListDropped)="drop($event)">
+						</app-task>
 						}
 					</mat-expansion-panel>
 				</mat-accordion>

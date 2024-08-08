@@ -15,7 +15,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 		.pipe(
 			catchError(
 				(err: HttpErrorResponse) => {
-					console.log("👀 ~ errorInterceptor catchError err:", err, typeof err.error === "object");
 					if (typeof err.error === "object" && err.status !== 0) {
 						if ((err.error as IResponse).message)
 							!(err.error as IResponse).success && notificationService.openSnackBar((err.error as IResponse).message, "ERROR");

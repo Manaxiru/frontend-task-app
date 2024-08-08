@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, effect, input, OnInit, output, sign
 import { DatePipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,7 +32,9 @@ import { ITask } from '../../interfaces';
 		MatDialogTitle,
 		MatDialogActions,
 		MatDialogClose,
-		TextFieldModule
+		TextFieldModule,
+		CdkDrag,
+		CdkDragHandle
 	],
 	templateUrl: './task.component.html',
 	styleUrl: './task.component.scss',
@@ -55,13 +58,15 @@ import { ITask } from '../../interfaces';
 export class TaskComponent implements OnInit {
 	tasks = input.required<ITask[]>({ alias: "userTasks" });
 	tasksAdjustedSignal: WritableSignal<(ITask & { editMode: boolean })[]>;
+	showDraggable = input.required<boolean>();
 	onTaskChange = output({ alias: "reloadTasks" });
+	onTaskDragChange = output({ alias: "draggingTasks" });
 
 	taskSelected: ITask | null;
 
 	form!: ModelFormGroup<Pick<ITask, "id" | "title" | "description">>;
 
-	confirmDialog = viewChild<TemplateRef<any>>("confirmDialog");
+	private confirmDialog = viewChild<TemplateRef<any>>("confirmDialog");
 	isDialogOpen: boolean;
 
 	constructor(

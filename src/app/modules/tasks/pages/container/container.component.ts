@@ -2,6 +2,7 @@ import { Component, effect, OnInit, OnDestroy, signal, ViewChild, WritableSignal
 import { NgClass } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import { Subject, takeUntil } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
+import { NotificationService } from '@app/shared/services';
 import { TasksService } from '../../services';
 import { ITask } from '../../interfaces';
 import { FormComponent, TaskComponent } from '../../components';
@@ -25,7 +27,8 @@ import { FormComponent, TaskComponent } from '../../components';
 		MatDividerModule,
 		MatChipsModule,
 		FormComponent,
-		TaskComponent
+		TaskComponent,
+		CdkDropList
 	],
 	templateUrl: './container.component.html',
 	styleUrl: './container.component.scss',
@@ -64,6 +67,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private tasksService: TasksService,
+		private notificationService: NotificationService,
 		private breakpointObserver: BreakpointObserver
 	) {
 		this.destroyed = new Subject<void>();
@@ -79,9 +83,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
 			.subscribe(({ matches }) => this.fullModeSignal.set(matches));
 		effect(() => {
 			this.fullModeSignal();
-			this.panel = { LEFT: null, RIGHT: null };
-			this.matAccordionLeft.open();
-			this.matAccordionRight.open();
+			this.expanded("BOTH");
 		});
 		this.tasksByFilterSignal = computed(() => {
 			const tasks = this.tasksSignal();
@@ -100,13 +102,11 @@ export class ContainerComponent implements OnInit, OnDestroy {
 	readAll() {
 		this.showForm = false;
 		this.tasksService.readAll().subscribe(res => {
-			console.log("👀 ~ ContainerComponent ~ this.tasksService.readAll ~ res:", res);
-			console.table(res.data);
 			if (res.success) this.tasksSignal.set(res.data as ITask[]);
 		});
 	}
 
-	expanded(side: "LEFT" | "RIGHT") {
+	expanded(side: "LEFT" | "RIGHT" | "BOTH") {
 		if (side === "LEFT" && !this.panel.LEFT) {
 			this.matAccordionRight.close();
 			this.panel.LEFT = true;
@@ -127,6 +127,19 @@ export class ContainerComponent implements OnInit, OnDestroy {
 		this.panel.RIGHT = null;
 		this.matAccordionLeft.open();
 		this.matAccordionRight.open();
+	}
+
+	pendingPredicate(data: CdkDrag<ITask>): boolean { return data.data.completed; }
+
+	completedPredicate(data: CdkDrag<ITask>): boolean { return !data.data.completed; }
+
+	drop(event: CdkDragDrop<ITask, ITask, ITask>) {
+		if (event.previousContainer !== event.container) {
+			this.tasksSignal.update(x => x.map(y => y.id !== event.item.data.id ? y : { ...y, completed: !y.completed }));
+			this.tasksService.update(event.item.data.id, { completed: !event.item.data.completed }).subscribe(res => {
+				if (res.success) this.notificationService.openSnackBar(res.message, "SUCCESS");
+			});
+		}
 	}
 
 	ngOnDestroy(): void {
