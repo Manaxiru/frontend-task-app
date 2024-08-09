@@ -37,7 +37,7 @@
 		<button mat-mini-fab matTooltip="Editar" class="edit" (click)="$event.stopPropagation(); editTask(item)">
 			<mat-icon> edit </mat-icon>
 		</button>
-		<button mat-mini-fab matTooltip="Eliminar" class="delete" (click)="confirmAction(item)">
+		<button mat-mini-fab matTooltip="Eliminar" class="delete" (click)="$event.stopPropagation(); confirmAction(item)">
 			<mat-icon> delete </mat-icon>
 		</button>
 	</mat-card-actions>

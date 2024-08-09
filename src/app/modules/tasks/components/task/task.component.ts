@@ -133,6 +133,7 @@ export class TaskComponent implements OnInit {
 
 	confirmAction(task: ITask) {
 		if (!this.isDialogOpen) {
+			this.taskSelected = task;
 			const dialogRef = this.matDialog.open(this.confirmDialog() as TemplateRef<any>,
 				{
 					panelClass: "confirm-dialog",

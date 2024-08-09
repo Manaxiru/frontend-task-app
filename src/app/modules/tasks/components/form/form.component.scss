@@ -5,16 +5,15 @@
 form {
 	display: flex;
 	flex-direction: column;
-	row-gap: 5px;
+	row-gap: 8px;
 	padding: 8px;
 	mat-checkbox {
 		text-align: center;
-		margin-top: -5px;
+		margin-top: -8px;
 	}
 	.actions {
 		display: flex;
 		justify-content: center;
-		margin-top: 4px;
 		column-gap: calc(var(--marge-h-mobile) * 2);
 		> button {
 			min-width: 120px;
